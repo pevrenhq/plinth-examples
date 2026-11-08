@@ -2,25 +2,25 @@
 terraform {
   required_version = ">= 1.6, < 2.0"
   backend "kubernetes" {
-    secret_suffix    = "plinth-comprehensive-uat"
-    namespace        = "plinth-runners"
+    secret_suffix     = "plinth-comprehensive-uat"
+    namespace         = "plinth-runners"
     in_cluster_config = true
   }
 }
 variable "marker" {
-  type = string
+  type      = string
   sensitive = true
 }
 resource "terraform_data" "marker" {
   input = var.marker
   lifecycle {
     precondition {
-      condition = file("/tmp/plinth-uat-marker") == "synthetic-file-content"
+      condition     = var.marker != "" && file("/tmp/plinth-uat-marker") == "synthetic-file-content"
       error_message = "The synthetic credential file was not mounted correctly."
     }
   }
 }
 output "marker" {
-  value = terraform_data.marker.output
+  value     = terraform_data.marker.output
   sensitive = true
 }
