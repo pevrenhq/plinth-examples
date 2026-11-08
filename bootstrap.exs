@@ -1,9 +1,14 @@
 # Run inside an already configured Plinth release with Repo started.
 # Adds missing catalog records only. Never launches a run or changes existing records.
+import Ecto.Query
 alias Plinth.{Catalog, Repo}
 alias Plinth.Catalog.{Repository, Template, Environment, Variable}
 ensure = fn schema, identity, attrs, create ->
-  case Repo.get_by(schema, identity) do
+  query = Enum.reduce(identity, schema, fn
+    {key, nil}, query -> where(query, [r], is_nil(field(r, ^key)))
+    {key, value}, query -> where(query, [r], field(r, ^key) == ^value)
+  end)
+  case Repo.one(query) do
     nil ->
       case create.(Map.merge(Map.new(identity), attrs)) do
         {:ok, record} -> record
