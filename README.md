@@ -35,7 +35,7 @@ installation. It adds only missing records, preserves edits, and never starts ru
 6. To test approval yourself, choose `plan_apply`. Review the plan, then approve
    or reject it. Approving only records synthetic data in Terraform state; it
    does not provision infrastructure. Author approval is enabled for this demo.
-7. The whitelisted custom command is `validate`; use `custom` to exercise it.
+7. The whitelisted custom command is `validate -no-color`; use `custom` to exercise it.
 
 ### State limitation
 

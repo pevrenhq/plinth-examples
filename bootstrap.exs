@@ -25,7 +25,7 @@ end
     {"Demo cluster", "eks-cluster/config", "node_count", "2", "3"}
   ] do
     template = ensure.(Template, [repository_id: repo.id, name: name], %{
-      path: path, binary: :tofu, custom_commands: ["validate"], author_may_approve: true
+      path: path, binary: :tofu, custom_commands: ["validate -no-color"], author_may_approve: true
     }, &Catalog.create_template/1)
     ensure.(Variable, [template_id: template.id, environment_id: nil, key: key], %{kind: :terraform, value: default, sensitive: false}, &Catalog.create_variable/1)
     for {env_name, position} <- [{"test", 0}, {"prod", 1}] do
