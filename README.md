@@ -64,4 +64,8 @@ tofu plan -input=false -var-file=prod.tfvars
 ```
 
 The repository was checked with the same `plinth-runner:local` image as the Mac
-installation. No apply was run while preparing these examples.
+installation. No apply was run while initially preparing these examples.
+
+The later [live UAT report](docs/uat-2026-11-08.md) records real plans, synthetic
+applies, rejection, cancellation, group ordering, and locking checks. It also
+distinguishes worker verification from the still-pending browser walkthrough.
