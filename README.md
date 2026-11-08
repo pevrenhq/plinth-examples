@@ -69,3 +69,15 @@ installation. No apply was run while initially preparing these examples.
 The later [live UAT report](docs/uat-2026-11-08.md) records real plans, synthetic
 applies, rejection, cancellation, group ordering, and locking checks. It also
 distinguishes worker verification from the still-pending browser walkthrough.
+
+## Additional correctness fixtures
+
+- `output-only`: no resources; tests that output changes still require approval/apply.
+- `stateful-uat`: local Kubernetes state backend, synthetic `terraform_data`, and
+  a mounted credential-file assertion. Requires a dedicated test service account,
+  `TF_VAR_marker`, and `/tmp/plinth-uat-marker` containing `synthetic-file-content`.
+  It uses namespace `plinth-runners` and suffix `plinth-comprehensive-uat`.
+  Do not use production credentials or run it against a production cluster.
+
+See the [comprehensive application UAT report](https://github.com/pevrenhq/plinth/blob/fix/comprehensive-uat/docs/comprehensive-uat-2026-11-08.md)
+for the apply → no-op plan → refresh → output → destroy evidence and remaining gaps.
