@@ -36,6 +36,7 @@ data "http" "plan_login" {
 
 resource "time_sleep" "wait" {
   create_duration = var.apply_wait
+  triggers        = { run = timestamp() }
 }
 
 data "local_sensitive_file" "apply_token" {
